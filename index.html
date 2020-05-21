@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>e-Rum2020 CovidR Contest</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link rel="icon" href="assets/eRum2020-icon-32x32.png" type="image/x-icon" />
+<!-- Same as in the main eRum2020 website -->
+<script type='text/javascript' src='https://2020.erum.io/wp-content/themes/jupiterx/lib/admin/assets/lib/webfont/webfont.min.js?ver=1.6.26'></script>
+<script type='text/javascript'>
+WebFont.load({
+  google: {
+    families: ['Roboto:100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic']
+	}
+});
+</script>
+<script src="assets/main.js"></script>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="assets/styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-erum2020  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">eRum2020::CovidR</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    
+  </a>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About
+  </a>
+</li>
+<li>
+  <a href="submit.html">
+    <span class="fa fa-arrow-circle-up"></span>
+     
+    Submit
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-folder-open"></span>
+     
+    Gallery
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="serdar-korur.html">cRew Symptom Tracker</a>
+    </li>
+    <li>
+      <a href="eric-covid19ke.html">Covid_19 Kenya</a>
+    </li>
+    <li>
+      <a href="mingione-nowcasting.html">NowCastingCOVID-19</a>
+    </li>
+    <li>
+      <a href="hammerschmidt-meyer-coro2vid-19.html">Coro2vid-19</a>
+    </li>
+    <li>
+      <a href="srinathkr-covid19-in-india.html">COVID-19 in India</a>
+    </li>
+    <li>
+      <a href="simmie-covid19-nlp.html">Covid'19 Twitter Analytics</a>
+    </li>
+    <li>
+      <a href="fanelli-covid-19-italy-dashboard.html">Covid-19 in Italy</a>
+    </li>
+    <li>
+      <a href="shubhrampandey-covid19-monitor.html">COVID-19 Monitor</a>
+    </li>
+    <li>
+      <a href="covid19datahub.html">COVID-19 Data Hub</a>
+    </li>
+    <li>
+      <a href="petr-baranovskiy-covid-ca-data-explorer.html">COVID-19 Canada Data Explorer</a>
+    </li>
+    <li>
+      <a href="hahn-covid-shinyline.html">Covid Shinyline</a>
+    </li>
+    <li>
+      <a href="laurinec-CoronaDash.html">CoronaDash - clustering-analytical tool</a>
+    </li>
+    <li>
+      <a href="phillips-et-al-nCovForecast.html">The ten-day coronavirus forecast</a>
+    </li>
+    <li>
+      <a href="john-coene.html">Coronavirus Tracker</a>
+    </li>
+    <li>
+      <a href="danese-covid19-understanding.html">Understanding COVID-19 with Excess Deaths</a>
+    </li>
+    <li>
+      <a href="sokil-papers-covid19.html">COVID-19 Scientific Papers</a>
+    </li>
+    <li>
+      <a href="bulletin-board-japan.html">COVID-19 Bulletin Board Japan</a>
+    </li>
+    <li>
+      <a href="tim-churches-COVID-19-blog-posts.html">COVID-19 and R blog series</a>
+    </li>
+    <li>
+      <a href="schoenenberger-globalCovidDashboard.html">Global COVID-19 Dashboard</a>
+    </li>
+    <li>
+      <a href="covid19-sir-model.html">COVID-19 Time-Dependent SIR Model</a>
+    </li>
+    <li>
+      <a href="malishev-covid19.html">Interactive map of 2019-nCov global distribution</a>
+    </li>
+    <li>
+      <a href="rako-CoDaP.html">Covid19 Data and Perception (CoDaP)</a>
+    </li>
+    <li>
+      <a href="vitalini-covid19.html">Covid19 Shiny App</a>
+    </li>
+    <li>
+      <a href="author-contribution-example.html">CovidR Example</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://2020.erum.io/">e-Rum2020</a>
+</li>
+<li>
+  <a href="https://github.com/Milano-R/erum2020-covidr-contest">
+    <span class="fa fa-github"></span>
+     
+    
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">e-Rum2020 CovidR Contest</h1>
+
+</div>
+
+
+<h1>
+Welcome to the CovidR Contest!
+</h1>
+<p><a href="about.html"><strong>eRum2020::CovidR</strong></a> is an open-source contest and pre-conference event launched by the 2020 European R Users Meeting (<a href="https://2020.erum.io/"><strong>e-Rum2020</strong></a>), featuring any work done with R around the topic of the <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"><strong>COVID-19 pandemic</strong></a>.</p>
+<p>The pre-conference virtual event will take place on <strong>May 29th</strong>, when selected participants will be invited to present their work and the contest winners will be announced and awarded with e-prizes. Contributions can be <strong><a href="submit.html">submitted</a> until May 22nd</strong> and are made available in this website, where the wider community is invited to provide feedback. The winner(s) will be announced during the conference pre-event on <strong>May 29th</strong>. Attendance to the event is subject to a <a href="https://www.eventbrite.it/e/covidr-erum-2020-pre-conference-event-tickets-104133026686"><strong>free registration</strong></a>, closing on <strong>May 22nd</strong>.</p>
+<p>The <strong>current submissions</strong> feature the contributions below. The corresponding gallery pages allow the wider community to browse through and <strong>like contributions</strong>.</p>
+<div id="contributions">
+<div class="modal fade" id="vote-modal" tabindex="-1" role="dialog" aria-labelledby="vote-modal-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="vote-modal-title">
+<div id="vote-modal-title">Vote for ""</div>
+</h4>
+</div>
+<div class="modal-body">
+<p>
+Like this contribution to see it presented and awarded at the e-Rum2020
+<a href="about.html">CovidR contest</a>
+pre-conference event
+</p>
+<div id="vote-modal-utterances"></div>
+</div>
+<div class="modal-footer"></div>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-serdar-korur">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;coRanavirus early-warning (cRew) Symptom Tracker\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;serdar-korur&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="serdar-korur.html">coRanavirus early-warning (cRew) Symptom Tracker</a>
+by
+<em>Serdar Korur, Dataatomic</em>
+<div class="details collapse" id="details-serdar-korur">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+Important Note &gt;&gt; The app uses Google firebase authentication to work.
+Thus, only authenticated users are able to interact with the app. (<a href="https://github.com/korur/cRew#readme">More info and a Demo on youTube.</a>)
+
+Covid-19 pandemic caught us off-guard. To avoid this happening again we probably need tools
+that enable us to react quickly when a new disease emerges and set measures to minimize its spread.
+In an attempt in this direction, we developed cRew.
+
+coRanavirus early-warning (cRew) tracks Covid-19 / flu like disease symptoms in real-time.
+The goal is to map in real-time healthy and symptomatic people. As users enter data about
+their health status, the app monitors temporal and spatial changes and estimates sudden
+increases or decreases on local risks.
+The app is built with shinyMobile &amp; firebase, echarts4r and fireData packages.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/korur/cRew" target="_blank">https://github.com/korur/cRew</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-eric-covid19ke">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;COVID_19 Kenya Flexdashboard\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;eric-covid19ke&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="eric-covid19ke.html">COVID_19 Kenya Flexdashboard</a>
+by
+<em>Eric Wanjau</em>
+<div class="details collapse" id="details-eric-covid19ke">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+This COVID-19 in Kenya Dashboard seeks to provide an overview of the 2019 Novel Coronavirus COVID-19 (2019-nCoV) epidemic. The dashboard mainly focuses on Kenya by visualising the total reported cases, the daily reported cases and their distribution per county. It also visualises the total cases globally and then focuses on the cases in Africa and its respective countries. The input data for this dashboard is the coronavirus R package (dev version) by Rami Krispin and the Ministry of Health, Kenya.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/R-icntay/covid19_ke" target="_blank">https://github.com/R-icntay/covid19_ke</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-mingione-nowcasting">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;Nowcasting Italian Covid-19 Epidemic\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;mingione-nowcasting&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="mingione-nowcasting.html">Nowcasting Italian Covid-19 Epidemic</a>
+by
+<em>Marco Mingione, Pierfrancesco Alaimo Di Loro</em>
+<div class="details collapse" id="details-mingione-nowcasting">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+Our work is intended to give people an easy tool for accessing information
+about the Italian COVID-19 epidemic in an interactive and transparent way.
+The web application we built is automatically updated every day after the Italian Protezione Civile report (<a href="https://github.com/pcm-dpc/COVID-19">Data Source</a>)
+and shows both descriptive and modeling analysis, giving the user the possibility to customize several choices. 
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/minmar94/StatGroup19" target="_blank">https://github.com/minmar94/StatGroup19</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-hammerschmidt-meyer-coro2vid-19">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;Coro2vid-19 — Leveraging Knowledge About Coronaviruses To Fight COVID-19\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;hammerschmidt-meyer-coro2vid-19&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="hammerschmidt-meyer-coro2vid-19.html">Coro2vid-19 — Leveraging Knowledge About Coronaviruses To Fight COVID-19</a>
+by
+<em>Dennis Hammerschmidt, Cosima Meyer</em>
+<div class="details collapse" id="details-hammerschmidt-meyer-coro2vid-19">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+Science-based solutions are crucial – particularly in times of a pandemic. We provide a platform for researchers to find similar articles related to coronaviruses covering more than 22,000 academic abstracts published between 1955 and 2020 from <a href="https://bit.ly/2LGuwNR">Kaggle</a>.
+We build our ShinyApp using 100-dimensional word embeddings from Tensorflow through the keras API in R, use Doc2vec from the textTinyR package to estimate similarity scores of abstracts and provide interactive graphs in plotly with clusters of similar articles based on k-nearest neighbors. Users can search for keywords, specific papers, and authors and receive graphs and tables showing related research. 
+The ShinyApp interface is based on the <a href="https://bit.ly/2Zh8EjQ">SemanticLibrarian template</a>.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/dennis-hammerschmidt/Coro2vid-19" target="_blank">https://github.com/dennis-hammerschmidt/Coro2vid-19</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-srinathkr-covid19-in-india">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;COVID-19 in India - An Analysis\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;srinathkr-covid19-in-india&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="srinathkr-covid19-in-india.html">COVID-19 in India - An Analysis</a>
+by
+<em>Srinath K R</em>
+<div class="details collapse" id="details-srinathkr-covid19-in-india">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+COVID-19 in India - An Analysis is a dashboard/tracker made to understand the spread of the Novel Coronavirus (COVID-19) pandemic across India.
+The data source is COVID-19 India API, a volunteer-driven API for COVID-19 stats in India which collects data from official press bulletins and reports released by various states.
+This project provides a summary of all types of cases reported, for the entire country in total and for each state; provides state-wise analysis with the help of a plot and a map and provides both cumulative and daily trends in cases.
+The main feature of this project is the SIR (Susceptible - Infectious - Recovered) model. This model has been applied for India for a period of 150 days starting from March 1, 2020. Based on this, R0 is also calculated.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/srinathkr07/COVID-19-in-India/" target="_blank">https://github.com/srinathkr07/COVID-19-in-India/</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-simmie-covid19-nlp">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;Covid&#39;19 Twitter Sentiment Analysis Shiny App\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;simmie-covid19-nlp&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="simmie-covid19-nlp.html">Covid'19 Twitter Sentiment Analysis Shiny App</a>
+by
+<em>Simileoluwa Kafaru</em>
+<div class="details collapse" id="details-simmie-covid19-nlp">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+There are so many controvesies and daily trending issues surrounding the Covid&#39;19 Pandemic. Twitter is one of the major Social Media platforms that
+catches news and trends in real-time, with a wide user base. Here, I focus on a Sentiment Analysis Shiny App, capable of collecting tweets in real-time with
+a choice of major hashtags. Sentiment Analysis is performed on the retrieved tweets and dashboarded. Also, a daily stats of the Covid&#39;19 pandemic
+is presented, all with real-time updates.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/simmieyungie/Corona-Virus" target="_blank">https://github.com/simmieyungie/Corona-Virus</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-fanelli-covid-19-italy-dashboard">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;Dashboard to Monitor Covid-19 Pandemy in Italy\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;fanelli-covid-19-italy-dashboard&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="fanelli-covid-19-italy-dashboard.html">Dashboard to Monitor Covid-19 Pandemy in Italy</a>
+by
+<em>Vito Fanelli</em>
+<div class="details collapse" id="details-fanelli-covid-19-italy-dashboard">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+This dashboard allows to monitor Covid-19 pandemy in Italy. It is based on daily data of Protezione Civile.
+The &ldquo;Italy&rdquo; section shows the number of total cases, actual cases, healed and deads at country level.
+It contains daily trends, moving averages and mortality rate.
+In the &ldquo;Region&rdquo; section there are the same information at regional level.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/VitoFanelli/covid-19-italy" target="_blank">https://github.com/VitoFanelli/covid-19-italy</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-shubhrampandey-covid19-monitor">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;COVID-19 Data Visualization Platform\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;shubhrampandey-covid19-monitor&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="shubhrampandey-covid19-monitor.html">COVID-19 Data Visualization Platform</a>
+by
+<em>Shubhram Pandey</em>
+<div class="details collapse" id="details-shubhrampandey-covid19-monitor">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+A new invisible enemy, only 30kb in size, has emerged and is on a killing spree around the world: 2019-nCoV, the Novel Coronavirus!
+This monitor was developed to make the data and key visualizations of COVID-19 trends available to everyone and also provide a platform to conduct a sentiment analysis of social media posts using Natural Language Processing (NLP).
+This monitor has 3 tabs: Dashboard, Comparison and Sentiments. The dashboard allows the user to view a complete picture of COVID-19 spread around the world. User can also click on any country in the map to view the numbers in that country. In comparison tab, user can compare the spread of COVID-19 in multiple countries in one view. Sentiment tab allows the user to run a sentiment analysis of trending hashtags of coronavirus on social media.
+The data used in this dashboard is from publicly available reliable and tested source like WHO, John Hopkins, etc.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/shubhrampandey/coronaVirus-dataViz" target="_blank">https://github.com/shubhrampandey/coronaVirus-dataViz</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-covid19datahub">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;COVID-19 Data Hub\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;covid19datahub&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="covid19datahub.html">COVID-19 Data Hub</a>
+by
+<em>Emanuele Guidotti, David Ardia</em>
+<div class="details collapse" id="details-covid19datahub">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+Built with R, available in any language, the Hub provides a worldwide, fine-grained, unified dataset helpful for a better understanding of COVID-19.
+The user can instantly download up-to-date, structured, historical daily data across several official sources. The data are hourly crunched by the R package COVID19 and made available in csv format on a cloud storage, so to be easily accessible from Excel, R, Python&hellip; and any other software.<br/>
+We welcome external contributors to join and extend the number of supporting data sources. All sources are properly documented, along with their citation.<br/>
+COVID-19 Data Hub can spot misalignments between data-sources and automatically inform authorities of possible errors. All logs are available at <a href="https://covid19datahub.io">https://covid19datahub.io</a><br/>
+Available on CRAN.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/covid19datahub/COVID19" target="_blank">https://github.com/covid19datahub/COVID19</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-petr-baranovskiy-covid-ca-data-explorer">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;COVID-19 Canada Data Explorer\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;petr-baranovskiy-covid-ca-data-explorer&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="petr-baranovskiy-covid-ca-data-explorer.html">COVID-19 Canada Data Explorer</a>
+by
+<em>Petr Baranovskiy</em>
+<div class="details collapse" id="details-petr-baranovskiy-covid-ca-data-explorer">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+COVID-19 Canada Data Explorer is an interactive Shiny app to break down and analyze
+the official COVID-19 dataset available from the Government of Canada
+(<a href="https://health-infobase.canada.ca/src/data/covidLive/covid19.csv">https://health-infobase.canada.ca/src/data/covidLive/covid19.csv</a>).
+The app can be used to visualize 13 different indicators by time and geography, and
+to directly compare the epidemiological situation across Canada&#39;s provinces and
+territories. It also allows users to custom-build and download their own datasets.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/baranovskypd/covid_ca_covidr" target="_blank">https://github.com/baranovskypd/covid_ca_covidr</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-hahn-covid-shinyline">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;The 2019-2020 Coronavirus Pandemic - A Timeline\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;hahn-covid-shinyline&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="hahn-covid-shinyline.html">The 2019-2020 Coronavirus Pandemic - A Timeline</a>
+by
+<em>Nico Hahn</em>
+<div class="details collapse" id="details-hahn-covid-shinyline">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+This app allows the user to scroll through a detailed timeline of key events during the coronavirus pandemic, with charts emphasizing key points in time.
+It also includes a live map showing the current number of confirmed/recovered/deceased cases for each country.
+The app uses data from Johns Hopkins University.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/nicoFhahn/covid_shiny" target="_blank">https://github.com/nicoFhahn/covid_shiny</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-laurinec-CoronaDash">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;CoronaDash - Clustering-Analytical Tool for Comparing Countries&#39; COVID-19 Trends\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;laurinec-CoronaDash&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="laurinec-CoronaDash.html">CoronaDash - Clustering-Analytical Tool for Comparing Countries' COVID-19 Trends</a>
+by
+<em>Peter Laurinec</em>
+<div class="details collapse" id="details-laurinec-CoronaDash">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+The CoronaDash is an interactive dashboard that provides advanced time series data mining tools for comparing countries&#39; trends for any derived statistic(s) with the option of user parameter tuning.
+For example, comparing countries with &ldquo;since first&rdquo; trajectories graphs, clustering these trajectories/multiple statistics with hierarchical clustering, and showing these results with various graphs such as dendrograms, a grid of clusters members, and MDS 2D similarity checks.
+It also covers and shows various statistics (many derived from the original ones) for every country, and extrapolate cases with exponential smoothing.
+The data (updated daily) are coming from GitHub repositories of CSSEGISandData, ulklc, and ChrisMichaelPerezSantiago using official data sources.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/PetoLau/CoronaDash" target="_blank">https://github.com/PetoLau/CoronaDash</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-phillips-et-al-nCovForecast">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;The Ten-Day Coronavirus Forecast\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;phillips-et-al-nCovForecast&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="phillips-et-al-nCovForecast.html">The Ten-Day Coronavirus Forecast</a>
+by
+<em>Ben Phillips, Melissa Makin, Uli Felzmann, Ian Marschner</em>
+<div class="details collapse" id="details-phillips-et-al-nCovForecast">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+Motivated by genuine concern that many countries were being caught flat-footed by the coronavirus pandemic, 
+we built a shiny app that, for every country, reports estimated case detection and growth rates, and which provides a ten-day projection of active case numbers.
+The idea was to move us past the paralysis of daily shock and towards important action, but the site also gives us feedback on how our actions are working. 
+The app uses a combination of methods ranging from simple heuristics to sophisticated deconvolution algorithms.  State-level reporting is also available for some countries. 
+The data are updated daily, and come from datasets collated by teams at John Hopkins University and Panjab University.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/benflips/nCovForecast" target="_blank">https://github.com/benflips/nCovForecast</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-john-coene">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;A Coronavirus Tracker, API &amp; Crawler\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;john-coene&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="john-coene.html">A Coronavirus Tracker, API &amp; Crawler</a>
+by
+<em>John Coene</em>
+<div class="details collapse" id="details-john-coene">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+A tracker that uses three different sources of data to present the user with
+a mobile-first application; the app, the API and its data crawler are both open-source.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/JohnCoene/coronavirus" target="_blank">https://github.com/JohnCoene/coronavirus</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-danese-covid19-understanding">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;Understanding COVID-19 through Italian Excess Deaths Analysis\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;danese-covid19-understanding&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="danese-covid19-understanding.html">Understanding COVID-19 through Italian Excess Deaths Analysis</a>
+by
+<em>Alberto Danese</em>
+<div class="details collapse" id="details-danese-covid19-understanding">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+Why are we expecting to understand COVID-19, when most of the analysis rely on the same biased, unreliable and dull data? Death and cases are counted differently across countries. In Italy, regions and provinces have different capabilities and policies when it comes to testing the population. All this makes drawing conclusions a hard and risky task. 
+Here I suggest an original approach based on overall deaths data from ISTAT, available from 2015 to 2020, done 100% in R.
+I focus on excess deaths with respect to previous years and answer many questions with a robust quantitative approach. Are men really more hit by COVID-19 than women? Is it true that only the elderly are affected? What really happened in Bergamo and other Italian provinces?
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/albedan/covidr-excess-deaths-analysis" target="_blank">https://github.com/albedan/covidr-excess-deaths-analysis</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-sokil-papers-covid19">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;Scientific Papers Related to the COVID-19 Virus\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;sokil-papers-covid19&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="sokil-papers-covid19.html">Scientific Papers Related to the COVID-19 Virus</a>
+by
+<em>Juan Sokil, Observatorio-CTS</em>
+<div class="details collapse" id="details-sokil-papers-covid19">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+This Shiny web app provides information updated daily on scientific papers related to the COVID-19 virus. The data is extracted from PubMed, a free search engine accessing primarily the MEDLINE database of references and abstracts on life sciences and medical topics. 
+This app allows to analyze the scientific production by country, the scientific collaboration and the topics of research.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/juansokil/Covid-19" target="_blank">https://github.com/juansokil/Covid-19</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-bulletin-board-japan">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;Interactive Dashboard for Real-Time Recording of COVID-19 Outbreak in Japan\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;bulletin-board-japan&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="bulletin-board-japan.html">Interactive Dashboard for Real-Time Recording of COVID-19 Outbreak in Japan</a>
+by
+<em>Wei Su</em>
+<div class="details collapse" id="details-bulletin-board-japan">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+The project is a website for real-time visualization of the COVID-19 
+epidemic in Japan, developed mainly using the R language with shiny and other
+open-source packages. It mainly shows various indicators including, 
+but not limited to, PCR test, positive confirmed, hospital discharge and death, 
+as well as trends in each prefecture in Japan, and there are also a variety of
+charts such as cluster network, new confirmed case in log scale for users&#39; reference.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/swsoyee/2019-ncov-japan" target="_blank">https://github.com/swsoyee/2019-ncov-japan</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-tim-churches-COVID-19-blog-posts">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;COVID-19 and R Blog Series\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;tim-churches-COVID-19-blog-posts&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="tim-churches-COVID-19-blog-posts.html">COVID-19 and R Blog Series</a>
+by
+<em>Tim Churches</em>
+<div class="details collapse" id="details-tim-churches-COVID-19-blog-posts">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+A series of blog posts starting on 18th February 2020 demonstrating the use of R to obtain,
+analyse and visualise COVID-19 data, including scraping of detailed data from wikipedia, the
+calculation of the time-variant effective reproduction number \(R_{t}\), which has subquentially become widely adopted
+as a measure of COVID-19 intervention success, and the creation of both dynamic and stochastic
+individual contact models to simulate COVID-19 spread and investigate the likely effects of various
+public health interventions in a population.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/timchurches/blog" target="_blank">https://github.com/timchurches/blog</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-schoenenberger-globalCovidDashboard">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;COVID-19 Global Cases - Open Source Dashboard\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;schoenenberger-globalCovidDashboard&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="schoenenberger-globalCovidDashboard.html">COVID-19 Global Cases - Open Source Dashboard</a>
+by
+<em>Christoph Schoenenberger</em>
+<div class="details collapse" id="details-schoenenberger-globalCovidDashboard">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+This dashboard shows recent developments of the COVID-19 pandemic. The latest
+data on the COVID-19 spread are regularly downloaded from Johns Hopkins University 
+and displayed in a map, summary tables, key figures and plots.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/chschoenenberger/covid19_dashboard" target="_blank">https://github.com/chschoenenberger/covid19_dashboard</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-covid19-sir-model">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;COVID-19 Time-Dependent SIR Model\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;covid19-sir-model&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="covid19-sir-model.html">COVID-19 Time-Dependent SIR Model</a>
+by
+<em>Michele Stefano Altieri, Hypermynds</em>
+<div class="details collapse" id="details-covid19-sir-model">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+The R package covid19 is used to retrieve, analyse and represent Italian
+data on the COVID19 outbreak and spreading. It also implements a
+time-dependent SIR model to predict the epidemic evolution.
+This package is built from data provided by the Civil Protection department
+of the Italian Government through the COVID-19 repository.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/hypermynds/covid19" target="_blank">https://github.com/hypermynds/covid19</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-malishev-covid19">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;Real-time Interactive Global Distribution of 2019-nCov: Cases, Deaths, and Cases in Last 15 Days\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;malishev-covid19&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="malishev-covid19.html">Real-time Interactive Global Distribution of 2019-nCov: Cases, Deaths, and Cases in Last 15 Days</a>
+by
+<em>Matt Malishev</em>
+<div class="details collapse" id="details-malishev-covid19">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+Interactive map of coronavirus 2019-nCov global distribution using live webscraped data from the <a href="https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases">European Centre for Disease Prevention and Control (ECDC)</a>.<br/>
+Data are for the country level showing cases, deaths, and cases in last 15 days, and show individual country rankings for these metrics.   
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/darwinanddavis/worldmaps/blob/gh-pages/docs/coronavirus_.R" target="_blank">https://github.com/darwinanddavis/worldmaps/blob/gh-pages/docs/coronavirus_.R</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-rako-CoDaP">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;Covid19 Data and Perception Application (CoDaP)\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;rako-CoDaP&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="rako-CoDaP.html">Covid19 Data and Perception Application (CoDaP)</a>
+by
+<em>Sabina Rako</em>
+<div class="details collapse" id="details-rako-CoDaP">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+Covid19 Data and Perception (CoDaP) is a Shiny web app created based on open results of International
+Survey on Coronavirus (<a href="https://covid19-survey.org/">https://covid19-survey.org/</a>) and open epidemilogical data from 
+European Centre for Disease Prevention and Control (<a href="https://www.ecdc.europa.eu/en">https://www.ecdc.europa.eu/en</a>).
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/SabinaRa/CoDaP" target="_blank">https://github.com/SabinaRa/CoDaP</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-vitalini-covid19">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;Covid19 Shiny App\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;vitalini-covid19&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="vitalini-covid19.html">Covid19 Shiny App</a>
+by
+<em>Francesca Vitalini, Mirai Solutions</em>
+<div class="details collapse" id="details-vitalini-covid19">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+Covid19 is a Shiny web app designed for visualizing trends, comparing the situation
+in different countries and getting a global overview of the virus distribution.
+The application uses data from the Johns Hopkins CSSE Repository untill March 23rd
+and Worldometer data afterwards.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/miraisolutions/Covid19" target="_blank">https://github.com/miraisolutions/Covid19</a>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="btns">
+<button class="btn btn-badge collapsed" data-parent="#contributions" data-toggle="collapse" data-target="#details-author-contribution-example">
+<span class="fa fa-minus"></span>
+</button>
+<button title="Vote for this contribution" class="btn btn-badge" onclick="set_vote_modal(&quot;Vote for \&quot;CovidR Contribution Example\&quot;&quot;, &quot;Milano-R/erum2020-covidr-contest&quot;, &quot;erum2020-covidr-contest&quot;, &quot;author-contribution-example&quot;)" data-toggle="modal" data-target="#vote-modal">
+<span class="fa fa-thumbs-up"></span>
+</button>
+</div>
+<a href="author-contribution-example.html">CovidR Contribution Example</a>
+by
+<em>An Author, Another Author</em>
+<div class="details collapse" id="details-author-contribution-example">
+<div class="abstract">
+<em>Abstract</em>
+&mdash;
+Short abstract with a brief description of the contribution and its main
+features (max 800 characters, including spaces).
+The usage of publicly available data should be explictly mentioned.
+The text can be broken across multiple lines, each indented with two spaces.
+
+</div>
+<div class="repo">
+<em>Repository</em>
+&mdash;
+<a href="https://github.com/Milano-R/erum2020-covidr-contest" target="_blank">https://github.com/Milano-R/erum2020-covidr-contest</a>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
